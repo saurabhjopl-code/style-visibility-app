@@ -1,1 +1,9 @@
-/* Design Variables (colors, spacing, typography) */
+:root {
+  --bg-page: #f3f4f6;
+  --bg-card: #ffffff;
+  --border-light: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --live-green: #16a34a;
+  --inactive-grey: #9ca3af;
+}
