@@ -12,7 +12,7 @@ const MP_LIST = [
   "NYKAA FASHION"
 ];
 
-/* 🔥 SAFE MP LOGO MAP */
+/* EXACT LOGO MAPPING (NO GUESSING) */
 const MP_LOGO_MAP = {
   "SNAPDEAL": "snapdeal.png",
   "FLIPKART": "flipkart.png",
@@ -20,11 +20,11 @@ const MP_LOGO_MAP = {
   "MEESHO": "meesho.png",
   "MYNTRA": "myntra.png",
   "SHOPIFY": "shopify.png",
-  "TATA CLIQ": "tata.png",          // because you uploaded tata.png
+  "TATA CLIQ": "tata.png",
   "AMAZON": "amazon.png",
   "LIMEROAD": "limeroad.png",
-  "AJIO": "ajio.png",
-  "NYKAA FASHION": "nykaa.png"      // because you uploaded Nykaa.png
+  "AJIO": "ajio.jpg",
+  "NYKAA FASHION": "nykaa.png"
 };
 
 /* MOCK 16 STYLES */
@@ -55,7 +55,7 @@ function loadMPFilter() {
   });
 }
 
-/* LOAD IMAGE CSV */
+/* LOAD STYLE IMAGE CSV */
 async function loadImages() {
   try {
     const response = await fetch("data/style_images.csv");
@@ -115,14 +115,13 @@ function renderCards(data) {
   });
 }
 
-/* SAFE LOGO RENDERING */
+/* SAFE LOGO RENDER */
 function renderLogos(mps) {
   return Object.keys(mps).map(mp => {
-    const live = mps[mp];
     const fileName = MP_LOGO_MAP[mp];
-
     if (!fileName) return "";
 
+    const live = mps[mp];
     const className = live ? "mp-logo" : "mp-logo not-live";
 
     return `
