@@ -1,1 +1,75 @@
-/* Cards, badges, logo styles */
+/* STYLE CARD */
+.style-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: 0.2s ease;
+}
+
+.style-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.style-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.style-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.style-title h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.category {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* STATUS DOT */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.live {
+  background: var(--live-green);
+}
+
+.non-live {
+  background: var(--inactive-grey);
+}
+
+/* MP LOGOS */
+.mp-row {
+  display: flex;
+  gap: 28px;
+  margin-top: 18px;
+  align-items: center;
+}
+
+.mp-logo {
+  height: 26px;
+  object-fit: contain;
+}
+
+.mp-logo.not-live {
+  filter: grayscale(100%);
+  opacity: 0.35;
+}
+
+/* META */
+.meta {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
