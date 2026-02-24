@@ -1,1 +1,175 @@
-<!-- Main App Layout Skeleton -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Style Visibility Dashboard</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: #f3f4f6;
+}
+
+.header {
+  background: #ffffff;
+  padding: 18px 40px;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.filters {
+  background: #ffffff;
+  padding: 16px 40px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  gap: 20px;
+}
+
+.filters input, .filters select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.container {
+  padding: 30px 40px;
+}
+
+.style-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: 0.2s ease;
+}
+
+.style-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.style-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.style-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.live {
+  background: #16a34a;
+}
+
+.non-live {
+  background: #9ca3af;
+}
+
+.category {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.mp-row {
+  display: flex;
+  gap: 30px;
+  margin-top: 18px;
+}
+
+.mp-logo {
+  height: 28px;
+  transition: 0.2s ease;
+}
+
+.mp-logo.not-live {
+  filter: grayscale(100%);
+  opacity: 0.35;
+}
+
+.meta {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #6b7280;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  STYLE VISIBILITY DASHBOARD
+</div>
+
+<div class="filters">
+  <input type="text" placeholder="Search Style ID">
+  <select>
+    <option>All Status</option>
+    <option>Live</option>
+    <option>Non-Live</option>
+  </select>
+  <select>
+    <option>All MP</option>
+    <option>Amazon</option>
+    <option>Flipkart</option>
+    <option>Myntra</option>
+  </select>
+</div>
+
+<div class="container">
+
+  <!-- MOCK STYLE 1 -->
+  <div class="style-card">
+    <div class="style-header">
+      <div class="style-title">
+        <span class="status-dot live"></span>
+        <h3>JOPLST218</h3>
+      </div>
+      <span class="category">Casual</span>
+    </div>
+
+    <div class="mp-row">
+      <img src="assets/logos/amazon.svg" class="mp-logo">
+      <img src="assets/logos/flipkart.svg" class="mp-logo">
+      <img src="assets/logos/myntra.svg" class="mp-logo">
+    </div>
+
+    <div class="meta">
+      Accounts: ACC1, ACC2
+    </div>
+  </div>
+
+  <!-- MOCK STYLE 2 -->
+  <div class="style-card">
+    <div class="style-header">
+      <div class="style-title">
+        <span class="status-dot non-live"></span>
+        <h3>FORMAL229</h3>
+      </div>
+      <span class="category">Formal</span>
+    </div>
+
+    <div class="mp-row">
+      <img src="assets/logos/amazon.svg" class="mp-logo not-live">
+      <img src="assets/logos/flipkart.svg" class="mp-logo not-live">
+    </div>
+
+    <div class="meta">
+      Accounts: -
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
