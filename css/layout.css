@@ -8,7 +8,7 @@ body {
 .header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
-  padding: 20px 40px;
+  padding: 24px 40px;
   position: relative;
   display: flex;
   align-items: center;
@@ -16,13 +16,13 @@ body {
 }
 
 .brand-logo {
-  height: 36px;
+  height: 40px;
   position: absolute;
   left: 40px;
 }
 
 .app-title {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -31,7 +31,7 @@ body {
 .filters {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
-  padding: 16px 40px;
+  padding: 18px 40px;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -39,22 +39,28 @@ body {
 
 .filters input,
 .filters select {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
 }
 
-/* MAIN CONTENT GRID */
+/* MAIN GRID 4x4 */
 .container {
-  padding: 30px 40px;
+  padding: 40px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
   .container {
     grid-template-columns: 1fr;
   }
