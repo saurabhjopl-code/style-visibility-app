@@ -1,214 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Style Visibility Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style Visibility Dashboard</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #f3f4f6;
-  color: #111827;
-}
-
-/* ===== HEADER ===== */
-.header {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 16px 40px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.brand-logo {
-  height: 32px;
-}
-
-.app-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* ===== FILTER BAR ===== */
-.filters {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 16px 40px;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.filters input,
-.filters select {
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-/* ===== CONTENT ===== */
-.container {
-  padding: 30px 40px;
-}
-
-/* ===== STYLE CARD ===== */
-.style-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: 0.2s ease;
-}
-
-.style-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-}
-
-.style-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.style-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.style-title h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.category {
-  font-size: 13px;
-  color: #6b7280;
-}
-
-/* ===== STATUS DOT ===== */
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.live {
-  background: #16a34a;
-}
-
-.non-live {
-  background: #9ca3af;
-}
-
-/* ===== MP LOGOS ===== */
-.mp-row {
-  display: flex;
-  gap: 28px;
-  margin-top: 18px;
-  align-items: center;
-}
-
-.mp-logo {
-  height: 26px;
-  object-fit: contain;
-  transition: 0.2s ease;
-}
-
-.mp-logo.not-live {
-  filter: grayscale(100%);
-  opacity: 0.35;
-}
-
-/* ===== META ===== */
-.meta {
-  margin-top: 16px;
-  font-size: 13px;
-  color: #6b7280;
-}
-
-</style>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-  <img src="assets/brand/logo.png" class="brand-logo">
-  <div class="app-title">STYLE VISIBILITY DASHBOARD</div>
-</div>
-
-<!-- ===== FILTERS ===== -->
-<div class="filters">
-  <input type="text" placeholder="Search Style ID">
-  <select>
-    <option>All Status</option>
-    <option>Live</option>
-    <option>Non-Live</option>
-  </select>
-  <select>
-    <option>All MP</option>
-    <option>Amazon</option>
-    <option>Flipkart</option>
-    <option>Myntra</option>
-    <option>Meesho</option>
-  </select>
-</div>
-
-<!-- ===== CONTENT ===== -->
-<div class="container">
-
-  <!-- MOCK STYLE 1 -->
-  <div class="style-card">
-    <div class="style-header">
-      <div class="style-title">
-        <span class="status-dot live"></span>
-        <h3>JOPLST218</h3>
-      </div>
-      <span class="category">Casual</span>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <img src="assets/brand/logo.png" class="brand-logo">
+      <h1 class="app-title">STYLE VISIBILITY DASHBOARD</h1>
     </div>
+  </header>
 
-    <div class="mp-row">
-      <img src="assets/logos/amazon.png" class="mp-logo">
-      <img src="assets/logos/flipkart.png" class="mp-logo">
-      <img src="assets/logos/myntra.png" class="mp-logo">
-    </div>
+  <!-- FILTER BAR -->
+  <section class="filters">
+    <input type="text" id="searchInput" placeholder="Search Style ID">
+    
+    <select id="statusFilter">
+      <option value="all">All Status</option>
+      <option value="live">Live</option>
+      <option value="non-live">Non-Live</option>
+    </select>
 
-    <div class="meta">
-      Accounts: ACC1, ACC2
-    </div>
-  </div>
+    <select id="mpFilter">
+      <option value="all">All MP</option>
+      <option value="Amazon">Amazon</option>
+      <option value="Flipkart">Flipkart</option>
+      <option value="Myntra">Myntra</option>
+      <option value="Meesho">Meesho</option>
+    </select>
+  </section>
 
-  <!-- MOCK STYLE 2 -->
-  <div class="style-card">
-    <div class="style-header">
-      <div class="style-title">
-        <span class="status-dot non-live"></span>
-        <h3>FORMAL229</h3>
-      </div>
-      <span class="category">Formal</span>
-    </div>
+  <!-- MAIN CONTENT -->
+  <main class="container" id="cardContainer">
+    <!-- Cards rendered by JS -->
+  </main>
 
-    <div class="mp-row">
-      <img src="assets/logos/amazon.png" class="mp-logo not-live">
-      <img src="assets/logos/flipkart.png" class="mp-logo not-live">
-      <img src="assets/logos/myntra.png" class="mp-logo not-live">
-    </div>
-
-    <div class="meta">
-      Accounts: -
-    </div>
-  </div>
-
-</div>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
