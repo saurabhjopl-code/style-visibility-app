@@ -1,0 +1,1 @@
+// Fetch style detail data
