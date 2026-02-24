@@ -1,3 +1,6 @@
+import { SHEET_URLS } from "./config/sheetConfig.js";
+
+/* MP LIST */
 const MP_LIST = [
   "SNAPDEAL",
   "FLIPKART",
@@ -12,7 +15,7 @@ const MP_LIST = [
   "NYKAA FASHION"
 ];
 
-/* EXACT LOGO MAPPING (NO GUESSING) */
+/* LOGO MAP */
 const MP_LOGO_MAP = {
   "SNAPDEAL": "snapdeal.png",
   "FLIPKART": "flipkart.png",
@@ -27,18 +30,8 @@ const MP_LOGO_MAP = {
   "NYKAA FASHION": "nykaa.png"
 };
 
-/* MOCK 16 STYLES */
-const mockData = Array.from({ length: 16 }, (_, i) => ({
-  styleid: `STYLE${1000 + i}`,
-  category: "Category",
-  status: i % 2 === 0 ? "live" : "non-live",
-  accounts: ["ACC1"],
-  mps: Object.fromEntries(
-    MP_LIST.map(mp => [mp, Math.random() > 0.5])
-  )
-}));
-
 let imageMap = {};
+let styleData = [];
 
 const container = document.getElementById("cardContainer");
 const searchInput = document.getElementById("searchInput");
@@ -55,19 +48,12 @@ function loadMPFilter() {
   });
 }
 
-/* LOAD STYLE IMAGE CSV */
+/* LOAD STYLE IMAGE CSV (LOCAL) */
 async function loadImages() {
-  try {
-    const response = await fetch("data/style_images.csv");
-    const text = await response.text();
-    parseCSV(text);
-  } catch (error) {
-    console.error("Error loading image CSV:", error);
-  }
-}
+  const response = await fetch("data/style_images.csv");
+  const text = await response.text();
 
-function parseCSV(csvText) {
-  const rows = csvText.split("\n").slice(1);
+  const rows = text.split("\n").slice(1);
   rows.forEach(row => {
     const [styleid, image] = row.split(",");
     if (styleid && image) {
@@ -76,11 +62,36 @@ function parseCSV(csvText) {
   });
 }
 
+/* LOAD GOOGLE SHEET DATA */
+async function loadSheetData() {
+  const response = await fetch(SHEET_URLS.STYLE_SUMMARY);
+  const text = await response.text();
+
+  const rows = text.split("\n");
+  const headers = rows[0].split(",");
+
+  const styleidIndex = headers.indexOf("styleid");
+  const categoryIndex = headers.indexOf("category");
+  const isLiveIndex = headers.indexOf("is_live");
+
+  styleData = rows.slice(1).map(row => {
+    const cols = row.split(",");
+
+    return {
+      styleid: cols[styleidIndex]?.trim(),
+      category: cols[categoryIndex]?.trim(),
+      status: cols[isLiveIndex]?.trim() === "TRUE" ? "live" : "non-live",
+      accounts: [],
+      mps: {}
+    };
+  }).filter(s => s.styleid);
+}
+
 /* RENDER CARDS */
 function renderCards(data) {
   container.innerHTML = "";
 
-  data.forEach(style => {
+  data.slice(0, 16).forEach(style => {
     const imageSrc =
       imageMap[style.styleid.toUpperCase()] ||
       "assets/brand/logo.png";
@@ -101,12 +112,8 @@ function renderCards(data) {
 
         <div class="category">${style.category}</div>
 
-        <div class="mp-row">
-          ${renderLogos(style.mps)}
-        </div>
-
         <div class="meta">
-          Accounts: ${style.accounts.join(", ")}
+          Status: ${style.status.toUpperCase()}
         </div>
       </div>
     `;
@@ -115,30 +122,12 @@ function renderCards(data) {
   });
 }
 
-/* SAFE LOGO RENDER */
-function renderLogos(mps) {
-  return Object.keys(mps).map(mp => {
-    const fileName = MP_LOGO_MAP[mp];
-    if (!fileName) return "";
-
-    const live = mps[mp];
-    const className = live ? "mp-logo" : "mp-logo not-live";
-
-    return `
-      <img src="assets/logos/${fileName}"
-           class="${className}"
-           onerror="this.style.display='none'">
-    `;
-  }).join("");
-}
-
 /* FILTER LOGIC */
 function applyFilters() {
-  let filtered = [...mockData];
+  let filtered = [...styleData];
 
   const searchValue = searchInput.value.toLowerCase();
   const statusValue = statusFilter.value;
-  const mpValue = mpFilter.value;
 
   if (searchValue) {
     filtered = filtered.filter(s =>
@@ -150,22 +139,19 @@ function applyFilters() {
     filtered = filtered.filter(s => s.status === statusValue);
   }
 
-  if (mpValue !== "all") {
-    filtered = filtered.filter(s => s.mps[mpValue]);
-  }
-
   renderCards(filtered);
 }
 
+/* EVENTS */
 searchInput.addEventListener("input", applyFilters);
 statusFilter.addEventListener("change", applyFilters);
-mpFilter.addEventListener("change", applyFilters);
 
 /* INIT */
 async function init() {
   loadMPFilter();
   await loadImages();
-  renderCards(mockData);
+  await loadSheetData();
+  renderCards(styleData);
 }
 
 init();
