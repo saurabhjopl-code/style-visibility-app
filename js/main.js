@@ -25,11 +25,36 @@ const mockData = [
   }
 ];
 
+let imageMap = {};
+
 const container = document.getElementById("cardContainer");
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
 const mpFilter = document.getElementById("mpFilter");
 
+/* ===== LOAD CSV IMAGES ===== */
+async function loadImages() {
+  try {
+    const response = await fetch("data/style_images.csv");
+    const text = await response.text();
+    parseCSV(text);
+  } catch (error) {
+    console.error("Error loading image CSV:", error);
+  }
+}
+
+function parseCSV(csvText) {
+  const rows = csvText.split("\n").slice(1);
+
+  rows.forEach(row => {
+    const [styleid, image] = row.split(",");
+    if (styleid && image) {
+      imageMap[styleid.trim().toUpperCase()] = image.trim();
+    }
+  });
+}
+
+/* ===== RENDER CARDS ===== */
 function renderCards(data) {
   container.innerHTML = "";
 
@@ -37,21 +62,33 @@ function renderCards(data) {
     const card = document.createElement("div");
     card.className = "style-card";
 
+    const imageSrc =
+      imageMap[style.styleid.toUpperCase()] ||
+      "assets/brand/logo.png";
+
     card.innerHTML = `
-      <div class="style-header">
-        <div class="style-title">
-          <span class="status-dot ${style.status}"></span>
-          <h3>${style.styleid}</h3>
+      <div class="style-top">
+        <img src="${imageSrc}"
+             class="style-image"
+             onerror="this.src='assets/brand/logo.png'">
+
+        <div class="style-info">
+          <div class="style-header">
+            <div class="style-title">
+              <span class="status-dot ${style.status}"></span>
+              <h3>${style.styleid}</h3>
+            </div>
+            <span class="category">${style.category}</span>
+          </div>
+
+          <div class="mp-row">
+            ${renderLogos(style.mps)}
+          </div>
+
+          <div class="meta">
+            Accounts: ${style.accounts.length ? style.accounts.join(", ") : "-"}
+          </div>
         </div>
-        <span class="category">${style.category}</span>
-      </div>
-
-      <div class="mp-row">
-        ${renderLogos(style.mps)}
-      </div>
-
-      <div class="meta">
-        Accounts: ${style.accounts.length ? style.accounts.join(", ") : "-"}
       </div>
     `;
 
@@ -69,6 +106,7 @@ function renderLogos(mps) {
   return html;
 }
 
+/* ===== FILTER LOGIC ===== */
 function applyFilters() {
   let filtered = [...mockData];
 
@@ -93,8 +131,15 @@ function applyFilters() {
   renderCards(filtered);
 }
 
+/* ===== EVENT LISTENERS ===== */
 searchInput.addEventListener("input", applyFilters);
 statusFilter.addEventListener("change", applyFilters);
 mpFilter.addEventListener("change", applyFilters);
 
-renderCards(mockData);
+/* ===== INIT ===== */
+async function init() {
+  await loadImages();
+  renderCards(mockData);
+}
+
+init();
