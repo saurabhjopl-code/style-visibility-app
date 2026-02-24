@@ -1,1 +1,50 @@
-/* Layout structure (header, sidebar, content) */
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* HEADER */
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  padding: 16px 40px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-logo {
+  height: 32px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* FILTER BAR */
+.filters {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  padding: 16px 40px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* MAIN CONTENT */
+.container {
+  padding: 30px 40px;
+}
