@@ -12,13 +12,30 @@ const MP_LIST = [
   "NYKAA FASHION"
 ];
 
-// Mock 16 styles
+/* 🔥 SAFE MP LOGO MAP */
+const MP_LOGO_MAP = {
+  "SNAPDEAL": "snapdeal.png",
+  "FLIPKART": "flipkart.png",
+  "MIRRAW": "mirraw.png",
+  "MEESHO": "meesho.png",
+  "MYNTRA": "myntra.png",
+  "SHOPIFY": "shopify.png",
+  "TATA CLIQ": "tata.png",          // because you uploaded tata.png
+  "AMAZON": "amazon.png",
+  "LIMEROAD": "limeroad.png",
+  "AJIO": "ajio.png",
+  "NYKAA FASHION": "nykaa.png"      // because you uploaded Nykaa.png
+};
+
+/* MOCK 16 STYLES */
 const mockData = Array.from({ length: 16 }, (_, i) => ({
   styleid: `STYLE${1000 + i}`,
   category: "Category",
   status: i % 2 === 0 ? "live" : "non-live",
   accounts: ["ACC1"],
-  mps: Object.fromEntries(MP_LIST.map(mp => [mp, Math.random() > 0.5]))
+  mps: Object.fromEntries(
+    MP_LIST.map(mp => [mp, Math.random() > 0.5])
+  )
 }));
 
 let imageMap = {};
@@ -28,6 +45,7 @@ const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
 const mpFilter = document.getElementById("mpFilter");
 
+/* LOAD MP FILTER */
 function loadMPFilter() {
   MP_LIST.forEach(mp => {
     const option = document.createElement("option");
@@ -37,6 +55,7 @@ function loadMPFilter() {
   });
 }
 
+/* LOAD IMAGE CSV */
 async function loadImages() {
   try {
     const response = await fetch("data/style_images.csv");
@@ -57,6 +76,7 @@ function parseCSV(csvText) {
   });
 }
 
+/* RENDER CARDS */
 function renderCards(data) {
   container.innerHTML = "";
 
@@ -95,14 +115,25 @@ function renderCards(data) {
   });
 }
 
+/* SAFE LOGO RENDERING */
 function renderLogos(mps) {
   return Object.keys(mps).map(mp => {
     const live = mps[mp];
+    const fileName = MP_LOGO_MAP[mp];
+
+    if (!fileName) return "";
+
     const className = live ? "mp-logo" : "mp-logo not-live";
-    return `<img src="assets/logos/${mp.toLowerCase().replace(" ", "")}.png" class="${className}">`;
+
+    return `
+      <img src="assets/logos/${fileName}"
+           class="${className}"
+           onerror="this.style.display='none'">
+    `;
   }).join("");
 }
 
+/* FILTER LOGIC */
 function applyFilters() {
   let filtered = [...mockData];
 
@@ -131,6 +162,7 @@ searchInput.addEventListener("input", applyFilters);
 statusFilter.addEventListener("change", applyFilters);
 mpFilter.addEventListener("change", applyFilters);
 
+/* INIT */
 async function init() {
   loadMPFilter();
   await loadImages();
