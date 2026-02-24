@@ -5,39 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Style Visibility Dashboard</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
+
 body {
   margin: 0;
-  font-family: Inter, sans-serif;
+  font-family: 'Inter', sans-serif;
   background: #f3f4f6;
+  color: #111827;
 }
 
+/* ===== HEADER ===== */
 .header {
   background: #ffffff;
-  padding: 18px 40px;
   border-bottom: 1px solid #e5e7eb;
-  font-weight: 600;
-  font-size: 20px;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
+.brand-logo {
+  height: 32px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===== FILTER BAR ===== */
 .filters {
   background: #ffffff;
-  padding: 16px 40px;
   border-bottom: 1px solid #e5e7eb;
+  padding: 16px 40px;
   display: flex;
-  gap: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.filters input, .filters select {
+.filters input,
+.filters select {
   padding: 8px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
+  font-size: 14px;
 }
 
+/* ===== CONTENT ===== */
 .container {
   padding: 30px 40px;
 }
 
+/* ===== STYLE CARD ===== */
 .style-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -63,6 +84,18 @@ body {
   gap: 10px;
 }
 
+.style-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.category {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== STATUS DOT ===== */
 .status-dot {
   width: 10px;
   height: 10px;
@@ -77,19 +110,17 @@ body {
   background: #9ca3af;
 }
 
-.category {
-  font-size: 14px;
-  color: #6b7280;
-}
-
+/* ===== MP LOGOS ===== */
 .mp-row {
   display: flex;
-  gap: 30px;
+  gap: 28px;
   margin-top: 18px;
+  align-items: center;
 }
 
 .mp-logo {
-  height: 28px;
+  height: 26px;
+  object-fit: contain;
   transition: 0.2s ease;
 }
 
@@ -98,19 +129,24 @@ body {
   opacity: 0.35;
 }
 
+/* ===== META ===== */
 .meta {
   margin-top: 16px;
-  font-size: 14px;
+  font-size: 13px;
   color: #6b7280;
 }
+
 </style>
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <div class="header">
-  STYLE VISIBILITY DASHBOARD
+  <img src="assets/brand/logo.png" class="brand-logo">
+  <div class="app-title">STYLE VISIBILITY DASHBOARD</div>
 </div>
 
+<!-- ===== FILTERS ===== -->
 <div class="filters">
   <input type="text" placeholder="Search Style ID">
   <select>
@@ -123,9 +159,11 @@ body {
     <option>Amazon</option>
     <option>Flipkart</option>
     <option>Myntra</option>
+    <option>Meesho</option>
   </select>
 </div>
 
+<!-- ===== CONTENT ===== -->
 <div class="container">
 
   <!-- MOCK STYLE 1 -->
@@ -139,9 +177,9 @@ body {
     </div>
 
     <div class="mp-row">
-      <img src="assets/logos/amazon.svg" class="mp-logo">
-      <img src="assets/logos/flipkart.svg" class="mp-logo">
-      <img src="assets/logos/myntra.svg" class="mp-logo">
+      <img src="assets/logos/amazon.png" class="mp-logo">
+      <img src="assets/logos/flipkart.png" class="mp-logo">
+      <img src="assets/logos/myntra.png" class="mp-logo">
     </div>
 
     <div class="meta">
@@ -160,8 +198,9 @@ body {
     </div>
 
     <div class="mp-row">
-      <img src="assets/logos/amazon.svg" class="mp-logo not-live">
-      <img src="assets/logos/flipkart.svg" class="mp-logo not-live">
+      <img src="assets/logos/amazon.png" class="mp-logo not-live">
+      <img src="assets/logos/flipkart.png" class="mp-logo not-live">
+      <img src="assets/logos/myntra.png" class="mp-logo not-live">
     </div>
 
     <div class="meta">
