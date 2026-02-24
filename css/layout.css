@@ -8,22 +8,23 @@ body {
 .header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
-  padding: 16px 40px;
-}
-
-.header-left {
+  padding: 20px 40px;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
 }
 
 .brand-logo {
-  height: 32px;
+  height: 36px;
+  position: absolute;
+  left: 40px;
 }
 
 .app-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 /* FILTER BAR */
@@ -44,7 +45,17 @@ body {
   font-size: 14px;
 }
 
-/* MAIN CONTENT */
+/* MAIN CONTENT GRID */
 .container {
   padding: 30px 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
